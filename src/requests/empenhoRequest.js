@@ -20,13 +20,19 @@ function getEmpenhosPorData(data, setEmpenhos) {
     });
 }
 
-function createEmpenho(setEmpenhos) {
-  let anoEmpenho = prompt("Enter ano empenho");
-  let dataEmpenho = prompt("Enter data empenho");
-  let valorEmpenho = prompt("Enter valor empenho");
-  let observacao = prompt("Enter descricao empenho");
-  let numeroProtocolo = prompt("Enter numero protocolo empenho");
+function createEmpenho(ano, data, valor, obs, numProtocolo, setEmpenhos) {
+  let anoEmpenho = ano;
+  let dataEmpenho = data;
+  let valorEmpenho = valor;
+  let observacao = obs;
+  let numeroProtocolo = numProtocolo;
+  // let anoEmpenho = prompt("Enter ano empenho");
+  // let dataEmpenho = prompt("Enter data empenho");
+  // let valorEmpenho = prompt("Enter valor empenho");
+  // let observacao = prompt("Enter descricao empenho");
+  // let numeroProtocolo = prompt("Enter numero protocolo empenho");
   console.log(
+    "Create Empenho ",
     JSON.stringify({
       anoEmpenho,
       dataEmpenho,

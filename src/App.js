@@ -170,7 +170,7 @@ function App() {
                 headers.push(f[0]);
               });
 
-              return <Despesa details={details} />;
+              return <Despesa details={details} setList={() => {}} />;
             })}
           </div>
         ) : (

@@ -12,8 +12,7 @@ function CreateDespesaModal(props) {
           const credor = document.getElementById("inputCredorDespesa").value;
           const desc = document.getElementById("inputDescricaoDespesa").value;
           const valor = document.getElementById("inputValorDespesa").value;
-          console.log("Inputs", tipo);
-          createDespesa(tipo, "qwe", "ewq", 123, setList);
+          createDespesa(tipo, credor, desc, valor, setList);
         }}
       >
         <label htmlFor="">Tipo da despesa </label>
