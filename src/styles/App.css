@@ -1,15 +1,24 @@
+.root {
+  background-color: #2f2f2f;
+}
+
 .despesasList {
+  width: 99vw;
   display: flex;
   flex-direction: column;
-  background-color: aqua;
+  /* background-color: aqua; */
   align-items: center;
   /* justify-content: center; */
-  height: 75vh;
+  height: 65vh;
   scroll-behavior: smooth;
   overflow-x: hidden;
   padding-top: 15px;
   row-gap: 15px;
   padding-bottom: 15px;
+}
+.despesasList::-webkit-scrollbar {
+  background-color: transparent;
+  width: 0px;
 }
 
 .wrapperButtons {
@@ -37,12 +46,15 @@
 
 .despesasRow {
   width: 100%;
+}
+.despesasRow,
+.listHeaderRow {
   cursor: pointer;
   /* margin-bottom: 15px; */
   display: flex;
   align-items: center;
   border-radius: 5px;
-  background-color: azure;
+  background-color: rgb(220, 235, 248);
   justify-content: space-between;
   padding-left: 10px;
   padding-right: 10px;
@@ -59,7 +71,20 @@
 }
 
 .tableBody {
-  width: 90%;
+  width: 90vw;
+}
+
+.listHeader {
+  width: 100vw;
+  /* background-color: aquamarine; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.listHeaderRow {
+  width: 90vw;
+  margin-bottom: 15px;
 }
 
 .rowData {

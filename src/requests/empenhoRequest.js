@@ -62,6 +62,9 @@ function createEmpenho(ano, data, valor, obs, numProtocolo, setEmpenhos) {
     .then((data) => {
       alert(data);
       getEmpenhos(setEmpenhos);
+    })
+    .catch((error) => {
+      console.log("Error empenho", error);
     });
 }
 

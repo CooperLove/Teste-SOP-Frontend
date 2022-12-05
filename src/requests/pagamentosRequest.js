@@ -18,12 +18,17 @@ function getPagamentosPorData(data, setPagamentos) {
     });
 }
 
-function createPagamento(setPagamentos) {
-  let anoPagamento = prompt("Enter ano pagamento");
-  let dataPagamento = prompt("Enter data pagamento");
-  let valorPagamento = prompt("Enter valor pagamento");
-  let observacao = prompt("Enter observacao pagamento");
-  let numeroEmpenho = prompt("Enter numero empenho pagamento");
+function createPagamento(ano, data, valor, obs, numEmpenho, setPagamentos) {
+  let anoPagamento = ano;
+  let dataPagamento = data;
+  let valorPagamento = valor;
+  let observacao = obs;
+  let numeroEmpenho = numEmpenho;
+  // let anoPagamento = prompt("Enter ano pagamento");
+  // let dataPagamento = prompt("Enter data pagamento");
+  // let valorPagamento = prompt("Enter valor pagamento");
+  // let observacao = prompt("Enter observacao pagamento");
+  // let numeroEmpenho = prompt("Enter numero empenho pagamento");
   console.log(
     JSON.stringify({
       anoPagamento,

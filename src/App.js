@@ -20,19 +20,17 @@ import {
   getPagamentosPorData,
 } from "./requests/pagamentosRequest";
 import CreateDespesaModal from "./components/CreateDespesaModal";
+import header from "./components/ListHeader";
+import ListHeader from "./components/ListHeader";
+import pages from "./PagesType";
 // import {} from "./requests/";
 
 function App() {
-  const currentPage = {
-    Despesas: "Despesas",
-    Empenhos: "Empenhos",
-    Pagamentos: "Pagamentos",
-  };
   const [list, setList] = useState("");
   const [createItem, setCreateItem] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [currentSearch, setCurrentSearch] = useState("");
-  const [page, setPage] = useState(currentPage.Despesas);
+  const [page, setPage] = useState(pages.Despesas);
   useEffect(() => {
     getDespesas(setList);
   }, []);
@@ -45,28 +43,28 @@ function App() {
     "-" +
     (date.getDate() < 10 ? "0" + date.getDate() : date.getDate());
 
-  const getCurrentPageList = () => {
-    return page === currentPage.Despesas
+  const getpagesList = () => {
+    return page === pages.Despesas
       ? getDespesas(setList)
-      : page === currentPage.Empenhos
+      : page === pages.Empenhos
       ? getEmpenhos(setList)
       : getPagamentos(setList);
   };
 
   const getSearchResultByCredor = (credor) => {
-    return page === currentPage.Despesas
+    return page === pages.Despesas
       ? selectedDate
         ? getDespesasCredorEData(credor, selectedDate, setList)
         : getDespesasCredor(credor, setList)
-      : page === currentPage.Empenhos
+      : page === pages.Empenhos
       ? getEmpenhos(setList)
       : getPagamentos(setList);
   };
 
   const getSearchResultByDate = (data) => {
-    return page === currentPage.Despesas
+    return page === pages.Despesas
       ? getDespesasCredorEData(currentSearch, data, setList)
-      : page === currentPage.Empenhos
+      : page === pages.Empenhos
       ? getEmpenhosPorData(data, setList)
       : getPagamentosPorData(data, setList);
   };
@@ -78,7 +76,7 @@ function App() {
         <button
           onClick={() => {
             setCreateItem(false);
-            setPage(currentPage.Despesas);
+            setPage(pages.Despesas);
             getDespesas(setList);
           }}
         >
@@ -89,7 +87,7 @@ function App() {
           onClick={() => {
             {
               setCreateItem(false);
-              setPage(currentPage.Empenhos);
+              setPage(pages.Empenhos);
               getEmpenhos(setList);
             }
           }}
@@ -100,7 +98,7 @@ function App() {
         <button
           onClick={() => {
             setCreateItem(false);
-            setPage(currentPage.Pagamentos);
+            setPage(pages.Pagamentos);
             getPagamentos(setList);
           }}
         >
@@ -113,7 +111,7 @@ function App() {
           onChange={(e) => {
             if (e.target.value === "") {
               setCurrentSearch("");
-              getCurrentPageList();
+              getpagesList();
               return;
             }
             setCurrentSearch((c) => (c = e.target.value));
@@ -128,7 +126,7 @@ function App() {
           onChange={(e) => {
             if (e.target.value === "") {
               setSelectedDate((s) => (s = ""));
-              getCurrentPageList();
+              getpagesList();
               return;
             }
             setSelectedDate((s) => {
@@ -140,19 +138,19 @@ function App() {
         />
         <br />
 
-        <button
-          onClick={() => {
-            setCreateItem(true);
-            // page === currentPage.Despesas
-            //   ? createDespesa(setList)
-            //   : page === currentPage.Empenhos
-            //   ? createEmpenho(setList)
-            //   : createPagamento(setList);
-          }}
-        >
-          {"Criar " + page}
-        </button>
+        {page === pages.Despesas ? (
+          <button
+            onClick={() => {
+              setCreateItem(true);
+            }}
+          >
+            {"Criar " + page}
+          </button>
+        ) : (
+          ""
+        )}
       </div>
+      <ListHeader page={page} />
       <section className="despesasList">
         {createItem ? (
           <CreateDespesaModal setList={setList} createDespesa={createDespesa} />
@@ -170,11 +168,13 @@ function App() {
                 headers.push(f[0]);
               });
 
-              return <Despesa details={details} setList={() => {}} />;
+              return (
+                <Despesa details={details} setList={() => {}} page={page} />
+              );
             })}
           </div>
         ) : (
-          "There is no merchant data available"
+          "Nenhum resultado encontrado"
         )}
       </section>
     </div>
