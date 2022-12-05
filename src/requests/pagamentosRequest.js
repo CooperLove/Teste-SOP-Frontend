@@ -7,6 +7,17 @@ function getPagamentos(setPagamentos) {
       setPagamentos(data);
     });
 }
+
+function getPagamentosPorData(data, setPagamentos) {
+  fetch(`http://localhost:3001/pagamentos/data/${data}`)
+    .then((response) => {
+      return response.text();
+    })
+    .then((data) => {
+      setPagamentos(data);
+    });
+}
+
 function createPagamento(setPagamentos) {
   let anoPagamento = prompt("Enter ano pagamento");
   let dataPagamento = prompt("Enter data pagamento");
@@ -82,6 +93,7 @@ function updatePagamento(setPagamentos) {
 
 module.exports = {
   getPagamentos,
+  getPagamentosPorData,
   createPagamento,
   updatePagamento,
   deletePagamento,
