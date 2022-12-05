@@ -9,8 +9,16 @@ import {
   getDespesasCredorEData,
 } from "./requests/despesasRequest";
 import Despesa from "./components/Despesa";
-import { getEmpenhos, createEmpenho } from "./requests/empenhoRequest";
-import { getPagamentos, createPagamento } from "./requests/pagamentosRequest";
+import {
+  getEmpenhos,
+  createEmpenho,
+  getEmpenhosPorData,
+} from "./requests/empenhoRequest";
+import {
+  getPagamentos,
+  createPagamento,
+  getPagamentosPorData,
+} from "./requests/pagamentosRequest";
 // import {} from "./requests/";
 
 function App() {
@@ -41,6 +49,24 @@ function App() {
       : page === currentPage.Empenhos
       ? getEmpenhos(setList)
       : getPagamentos(setList);
+  };
+
+  const getSearchResultByCredor = (credor) => {
+    return page === currentPage.Despesas
+      ? selectedDate
+        ? getDespesasCredorEData(credor, selectedDate, setList)
+        : getDespesasCredor(credor, setList)
+      : page === currentPage.Empenhos
+      ? getEmpenhos(setList)
+      : getPagamentos(setList);
+  };
+
+  const getSearchResultByDate = (data) => {
+    return page === currentPage.Despesas
+      ? getDespesasCredorEData(currentSearch, data, setList)
+      : page === currentPage.Empenhos
+      ? getEmpenhosPorData(data, setList)
+      : getPagamentosPorData(data, setList);
   };
 
   return (
@@ -85,13 +111,9 @@ function App() {
               getCurrentPageList();
               return;
             }
-            setCurrentSearch(
-              (currentSearch) => (currentSearch = e.target.value)
-            );
-            selectedDate
-              ? getDespesasCredorEData(e.target.value, selectedDate, setList)
-              : getDespesasCredor(e.target.value, setList);
-            console.log("E" + currentSearch.current, selectedDate.current);
+            setCurrentSearch((c) => (c = e.target.value));
+            getSearchResultByCredor(e.target.value);
+            console.log("E" + currentSearch, selectedDate);
           }}
         />
         <input
@@ -100,14 +122,14 @@ function App() {
           id=""
           onChange={(e) => {
             if (e.target.value === "") {
-              selectedDate("");
+              setSelectedDate((s) => (s = ""));
               getCurrentPageList();
               return;
             }
             setSelectedDate((s) => {
               return (s = e.target.value);
             });
-            getDespesasCredorEData(currentSearch, e.target.value, setList);
+            getSearchResultByDate(e.target.value);
           }}
           max={currentDay}
         />

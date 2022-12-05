@@ -8,6 +8,18 @@ function getEmpenhos(setEmpenhos) {
       setEmpenhos(data);
     });
 }
+
+function getEmpenhosPorData(data, setEmpenhos) {
+  console.log("GET Empenhos");
+  fetch(`http://localhost:3001/empenhos/data/${data}`)
+    .then((response) => {
+      return response.text();
+    })
+    .then((data) => {
+      setEmpenhos(data);
+    });
+}
+
 function createEmpenho(setEmpenhos) {
   let anoEmpenho = prompt("Enter ano empenho");
   let dataEmpenho = prompt("Enter data empenho");
@@ -83,6 +95,7 @@ function updateEmpenho(setEmpenhos) {
 
 module.exports = {
   getEmpenhos,
+  getEmpenhosPorData,
   createEmpenho,
   updateEmpenho,
   deleteEmpenho,
