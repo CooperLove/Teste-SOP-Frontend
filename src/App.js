@@ -19,6 +19,7 @@ import {
   createPagamento,
   getPagamentosPorData,
 } from "./requests/pagamentosRequest";
+import CreateDespesaModal from "./components/CreateDespesaModal";
 // import {} from "./requests/";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
     Pagamentos: "Pagamentos",
   };
   const [list, setList] = useState("");
+  const [createItem, setCreateItem] = useState(false);
   const [selectedDate, setSelectedDate] = useState("");
   const [currentSearch, setCurrentSearch] = useState("");
   const [page, setPage] = useState(currentPage.Despesas);
@@ -75,6 +77,7 @@ function App() {
         <br />
         <button
           onClick={() => {
+            setCreateItem(false);
             setPage(currentPage.Despesas);
             getDespesas(setList);
           }}
@@ -85,6 +88,7 @@ function App() {
         <button
           onClick={() => {
             {
+              setCreateItem(false);
               setPage(currentPage.Empenhos);
               getEmpenhos(setList);
             }
@@ -95,6 +99,7 @@ function App() {
         <br />
         <button
           onClick={() => {
+            setCreateItem(false);
             setPage(currentPage.Pagamentos);
             getPagamentos(setList);
           }}
@@ -137,18 +142,21 @@ function App() {
 
         <button
           onClick={() => {
-            page === currentPage.Despesas
-              ? createDespesa(setList)
-              : page === currentPage.Empenhos
-              ? createEmpenho(setList)
-              : createPagamento(setList);
+            setCreateItem(true);
+            // page === currentPage.Despesas
+            //   ? createDespesa(setList)
+            //   : page === currentPage.Empenhos
+            //   ? createEmpenho(setList)
+            //   : createPagamento(setList);
           }}
         >
           {"Criar " + page}
         </button>
       </div>
       <section className="despesasList">
-        {list ? (
+        {createItem ? (
+          <CreateDespesaModal setList={setList} createDespesa={createDespesa} />
+        ) : list ? (
           <div className="tableBody">
             {list.split(/},{/g).map((m) => {
               let fields = m.split(",");
@@ -161,18 +169,8 @@ function App() {
                 details[f[0]] = f[1]?.trim();
                 headers.push(f[0]);
               });
-              // console.log(details);
 
               return <Despesa details={details} />;
-              {
-                /* <tr className="tableHeader">
-                    {headers.map((h) => {
-                      return <td>{h}</td>;
-                    })}
-                  </tr> */
-              }
-
-              // return <Despesa details={details} />;
             })}
           </div>
         ) : (

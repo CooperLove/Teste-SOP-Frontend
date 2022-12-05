@@ -41,11 +41,15 @@ function getDespesasCredorEData(credor, dataProtocolo, setDespesas) {
     });
 }
 
-function createDespesa(setDespesas) {
-  let tipoDespesa = prompt("Enter tipo despesa");
-  let credorDespesa = prompt("Enter credor despesa");
-  let descricaoDespesa = prompt("Enter descricao despesa");
-  let valorDespesa = prompt("Enter valor despesa");
+function createDespesa(tipo, credor, desc, valor, setDespesas) {
+  // let tipoDespesa = prompt("Enter tipo despesa");
+  // let credorDespesa = prompt("Enter credor despesa");
+  // let descricaoDespesa = prompt("Enter descricao despesa");
+  // let valorDespesa = prompt("Enter valor despesa");
+  let tipoDespesa = tipo;
+  let credorDespesa = credor;
+  let descricaoDespesa = desc;
+  let valorDespesa = valor;
   console.log(
     JSON.stringify({
       tipoDespesa,
