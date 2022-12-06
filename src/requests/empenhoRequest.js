@@ -2,7 +2,7 @@ function getEmpenhos(setEmpenhos) {
   console.log("GET Empenhos");
   fetch("http://localhost:3001/empenhos")
     .then((response) => {
-      return response.text();
+      return response.json();
     })
     .then((data) => {
       setEmpenhos(data);
@@ -13,7 +13,7 @@ function getEmpenhosPorData(data, setEmpenhos) {
   console.log("GET Empenhos");
   fetch(`http://localhost:3001/empenhos/data/${data}`)
     .then((response) => {
-      return response.text();
+      return response.json();
     })
     .then((data) => {
       setEmpenhos(data);

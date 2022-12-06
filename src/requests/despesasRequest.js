@@ -1,12 +1,35 @@
 function getDespesas(setDespesas) {
   fetch("http://localhost:3001/despesas")
     .then((response) => {
-      return response.text();
+      return response.json();
     })
     .then((data) => {
       setDespesas(data);
     });
 }
+
+function getValorEmpenhosDaDespesa(numeroProtocolo, setValorEmpenhos) {
+  console.log("GET valor empenhos ", numeroProtocolo);
+  fetch(`http://localhost:3001/despesas/valorEmpenhos/${numeroProtocolo}`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      setValorEmpenhos(data[0]["sum"]);
+    });
+}
+
+function getValorPagamentosDaDespesa(numeroProtocolo, setValorPagamentos) {
+  console.log("GET valor pagamentos ", numeroProtocolo);
+  fetch(`http://localhost:3001/despesas/valorPagamentos/${numeroProtocolo}`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      setValorPagamentos(data[0]["sum"]);
+    });
+}
+
 function getDespesasTipoDespesa(setDespesas) {
   fetch("http://localhost:3001/tipoDespesas")
     .then((response) => {
@@ -19,7 +42,7 @@ function getDespesasTipoDespesa(setDespesas) {
 function getDespesasCredor(credor, setDespesas) {
   fetch(`http://localhost:3001/credorDespesas/${credor}`)
     .then((response) => {
-      return response.text();
+      return response.json();
     })
     .then((data) => {
       setDespesas(data);
@@ -33,7 +56,7 @@ function getDespesasCredorEData(credor, dataProtocolo, setDespesas) {
       : `http://localhost:3001/credorDespesas/${credor}/${dataProtocolo}`;
   fetch(url)
     .then((response) => {
-      return response.text();
+      return response.json();
     })
     .then((data) => {
       console.log("Result: ", data);
@@ -115,6 +138,8 @@ module.exports = {
   getDespesas,
   getDespesasCredor,
   getDespesasCredorEData,
+  getValorEmpenhosDaDespesa,
+  getValorPagamentosDaDespesa,
   createDespesa,
   updateDespesa,
   deleteDespesa,

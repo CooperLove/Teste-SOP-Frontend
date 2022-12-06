@@ -1,7 +1,7 @@
 function getPagamentos(setPagamentos) {
   fetch("http://localhost:3001/pagamentos")
     .then((response) => {
-      return response.text();
+      return response.json();
     })
     .then((data) => {
       setPagamentos(data);
@@ -11,7 +11,7 @@ function getPagamentos(setPagamentos) {
 function getPagamentosPorData(data, setPagamentos) {
   fetch(`http://localhost:3001/pagamentos/data/${data}`)
     .then((response) => {
-      return response.text();
+      return response.json();
     })
     .then((data) => {
       setPagamentos(data);

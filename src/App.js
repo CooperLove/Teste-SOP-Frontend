@@ -7,6 +7,7 @@ import {
   deleteDespesa,
   getDespesasCredor,
   getDespesasCredorEData,
+  getValorEmpenhosDaDespesa,
 } from "./requests/despesasRequest";
 import Despesa from "./components/Despesa";
 import {
@@ -105,20 +106,24 @@ function App() {
           Pagamentos
         </button>
         <br />
-        <input
-          type="text"
-          placeholder="Pesquisar por tipo ou credor"
-          onChange={(e) => {
-            if (e.target.value === "") {
-              setCurrentSearch("");
-              getpagesList();
-              return;
-            }
-            setCurrentSearch((c) => (c = e.target.value));
-            getSearchResultByCredor(e.target.value);
-            console.log("E" + currentSearch, selectedDate);
-          }}
-        />
+        {page === pages.Despesas ? (
+          <input
+            type="text"
+            placeholder="Pesquisar por tipo ou credor"
+            onChange={(e) => {
+              if (e.target.value === "") {
+                setCurrentSearch("");
+                getpagesList();
+                return;
+              }
+              setCurrentSearch((c) => (c = e.target.value));
+              getSearchResultByCredor(e.target.value);
+              console.log("E" + currentSearch, selectedDate);
+            }}
+          />
+        ) : (
+          ""
+        )}
         <input
           type="date"
           name=""
@@ -156,21 +161,8 @@ function App() {
           <CreateDespesaModal setList={setList} createDespesa={createDespesa} />
         ) : list ? (
           <div className="tableBody">
-            {list.split(/},{/g).map((m) => {
-              let fields = m.split(",");
-              let details = {};
-              fields.map((f) => {
-                f = f.replace(/\[\{/g, "").replace(/\}\]/g, "");
-                f = f.split(":");
-                f[0] = f[0].replace(/"/g, "");
-                f[1] = f[1]?.replace(/"/g, " ");
-                details[f[0]] = f[1]?.trim();
-                headers.push(f[0]);
-              });
-
-              return (
-                <Despesa details={details} setList={() => {}} page={page} />
-              );
+            {list.map((e) => {
+              return <Despesa details={e} setList={() => {}} page={page} />;
             })}
           </div>
         ) : (
