@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import pages from "../PagesType";
+import { deleteDespesa } from "../requests/despesasRequest";
 import { createEmpenho } from "../requests/empenhoRequest";
+import DeleteConfirmationBox from "./DeleteConfirmationBox";
 
 function DetailsDespesa(props) {
+  const [showConfirmationDialogBox, setShowConfirmationDialogBox] =
+    useState(false);
   const { details, setList } = props;
   const date = new Date();
   const currentDay =
@@ -50,10 +55,31 @@ function DetailsDespesa(props) {
           >
             Criar Empenho
           </button>
+          <br />
+          <br />
         </form>
+        <form>
+          <button>Ver empenhos</button>
+          <br />
+        </form>
+        <button
+          onClick={() => {
+            setShowConfirmationDialogBox(true);
+          }}
+        >
+          Excluir despesa
+        </button>
       </div>
-      <br />
-      <button>Ver empenhos</button>
+      {showConfirmationDialogBox ? (
+        <DeleteConfirmationBox
+          page={pages.Despesas}
+          id={details["numeroProtocolo"]}
+          setList={setList}
+          closeDialogBox={setShowConfirmationDialogBox}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 }

@@ -42,10 +42,6 @@ function getDespesasCredorEData(credor, dataProtocolo, setDespesas) {
 }
 
 function createDespesa(tipo, credor, desc, valor, setDespesas) {
-  // let tipoDespesa = prompt("Enter tipo despesa");
-  // let credorDespesa = prompt("Enter credor despesa");
-  // let descricaoDespesa = prompt("Enter descricao despesa");
-  // let valorDespesa = prompt("Enter valor despesa");
   let tipoDespesa = tipo;
   let credorDespesa = credor;
   let descricaoDespesa = desc;
@@ -81,9 +77,9 @@ function createDespesa(tipo, credor, desc, valor, setDespesas) {
     });
 }
 
-function deleteDespesa() {
-  let id = prompt("Enter merchant id");
-  fetch(`http://localhost:3001/merchants/${id}`, {
+function deleteDespesa(numProtocolo, setDespesas) {
+  let numeroProtocolo = numProtocolo;
+  fetch(`http://localhost:3001/despesas/${numeroProtocolo}`, {
     method: "DELETE",
   })
     .then((response) => {
@@ -91,7 +87,7 @@ function deleteDespesa() {
     })
     .then((data) => {
       alert(data);
-      //   getMerchant();
+      getDespesas(setDespesas);
     });
 }
 
