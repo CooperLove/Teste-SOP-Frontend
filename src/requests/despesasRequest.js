@@ -47,7 +47,6 @@ function getDespesasCredor(credor, setDespesas) {
     });
 }
 function getDespesasCredorEData(credor, dataProtocolo, setDespesas) {
-  console.log("Credor", credor === undefined || credor === "");
   const url =
     credor === undefined || credor === ""
       ? `http://localhost:3001/credorDespesas/data/${dataProtocolo}`
@@ -57,7 +56,6 @@ function getDespesasCredorEData(credor, dataProtocolo, setDespesas) {
       return response.json();
     })
     .then((data) => {
-      console.log("Result: ", data);
       setDespesas(data);
     });
 }
@@ -89,7 +87,6 @@ function createDespesa(tipo, credor, desc, valor, setDespesas) {
     }),
   })
     .then((response) => {
-      // console.log(response.text());
       return response.text();
     })
     .then((data) => {

@@ -86,7 +86,6 @@ function DetailsDespesa(props) {
               const descricao = document.getElementById(
                 "inputDescricaoEmpenho"
               ).value;
-              console.log(ano, valor, descricao);
               if (valor === "" || descricao === "") return;
               createEmpenho(
                 `${ano}`,

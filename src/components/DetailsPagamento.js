@@ -14,7 +14,6 @@ function DetailsPagamento(props) {
     Number(date.getMonth() + 1) +
     "-" +
     (date.getDate() < 10 ? "0" + date.getDate() : date.getDate());
-  console.log("Emp:", credor?.at(0)?.credor);
   return (
     <div className="detailsDespesa">
       <section>{"Nome do credor: " + credor?.at(0)?.credor ?? ""}</section>

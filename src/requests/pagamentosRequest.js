@@ -34,11 +34,6 @@ function createPagamento(ano, data, valor, obs, numEmpenho, setPagamentos) {
   let valorPagamento = valor;
   let observacao = obs;
   let numeroEmpenho = numEmpenho;
-  // let anoPagamento = prompt("Enter ano pagamento");
-  // let dataPagamento = prompt("Enter data pagamento");
-  // let valorPagamento = prompt("Enter valor pagamento");
-  // let observacao = prompt("Enter observacao pagamento");
-  // let numeroEmpenho = prompt("Enter numero empenho pagamento");
   console.log(
     JSON.stringify({
       anoPagamento,
@@ -63,7 +58,6 @@ function createPagamento(ano, data, valor, obs, numEmpenho, setPagamentos) {
     }),
   })
     .then((response) => {
-      // console.log(response.text());
       return response.text();
     })
     .then((data) => {

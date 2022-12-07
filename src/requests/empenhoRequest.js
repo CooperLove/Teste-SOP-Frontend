@@ -1,5 +1,4 @@
 function getEmpenhos(setEmpenhos) {
-  console.log("GET Empenhos");
   fetch("http://localhost:3001/empenhos")
     .then((response) => {
       return response.json();
@@ -10,7 +9,6 @@ function getEmpenhos(setEmpenhos) {
 }
 
 function getEmpenhosPorData(data, setEmpenhos) {
-  console.log("GET Empenhos");
   fetch(`http://localhost:3001/empenhos/data/${data}`)
     .then((response) => {
       return response.json();
@@ -21,25 +19,21 @@ function getEmpenhosPorData(data, setEmpenhos) {
 }
 
 function getValorPagamentosDaDespesa(numeroEmpenho, setValorPagamentos) {
-  console.log("GET Emp - valor pagamentos ", numeroEmpenho);
   fetch(`http://localhost:3001/empenhos/valorPagamentos/${numeroEmpenho}`)
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      console.log("Data - ", data);
       setValorPagamentos(data[0]["sum"]);
     });
 }
 
 function getCredorDaDespesa(numeroProtocolo, setCredor) {
-  console.log("GET Emp - credor ", numeroProtocolo);
   fetch(`http://localhost:3001/empenhos/credores/${numeroProtocolo}`)
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      console.log("Data - ", data);
       setCredor(data);
     });
 }
@@ -75,7 +69,6 @@ function createEmpenho(ano, data, valor, obs, numProtocolo, setEmpenhos) {
     }),
   })
     .then((response) => {
-      // console.log(response.text());
       return response.text();
     })
     .then((data) => {
