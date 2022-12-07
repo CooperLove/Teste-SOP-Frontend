@@ -19,6 +19,7 @@ function Despesa(props) {
   for (const [key, value] of Object.entries(details)) {
     rowData.push(value);
   }
+  rowData[2] = String(rowData[2]).substring(0, 10);
   if (page === pages.Despesas) {
     getValorEmpenhosDaDespesa(rowData[0], setValorEmpenhos);
     getValorPagamentosDaDespesa(rowData[0], setValorPagamentos);
@@ -34,9 +35,8 @@ function Despesa(props) {
         : valorPagamentos < valorEmpenhos
         ? "Parcialmente paga"
         : "Paga";
-    console.log("hehe ", rowData[rowData.length - 1], valor);
-    // console.log("Valor ", valorEmpenhos);
-    // const valor = e["valorDespesa"];
+
+    rowData[3] = String(rowData[3]).substring(0, 10);
   }
   return !showMore ? (
     <ul className="despesasRow" onClick={() => setShowMore(!showMore)}>
@@ -52,9 +52,14 @@ function Despesa(props) {
         })}
       </ul>
       {page === pages.Despesas ? (
-        <DetailsDespesa details={details} />
+        <DetailsDespesa
+          details={details}
+          status={rowData[rowData.length - 1]}
+          valorEmpenhos={valorEmpenhos}
+          valorPagamentos={valorPagamentos}
+        />
       ) : page === pages.Empenhos ? (
-        <DetailsEmpenho details={details} />
+        <DetailsEmpenho details={details} valorPagamentos={valorPagamentos} />
       ) : (
         <DetailsPagamento details={details} />
       )}

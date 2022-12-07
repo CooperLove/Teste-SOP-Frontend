@@ -9,14 +9,7 @@ import { createEmpenho } from "../requests/empenhoRequest";
 import DeleteConfirmationBox from "./DeleteConfirmationBox";
 
 function DetailsDespesa(props) {
-  const { details, setList } = props;
-  const [valorEmpenhos, setValorEmpenhos] = useState(0);
-  const [valorPagamentos, setValorPagamentos] = useState(0);
-  useEffect(() => {
-    getValorEmpenhosDaDespesa(details["numeroProtocolo"], setValorEmpenhos);
-    getValorPagamentosDaDespesa(details["numeroProtocolo"], setValorPagamentos);
-  }, []);
-
+  const { details, setList, status, valorEmpenhos, valorPagamentos } = props;
   const [showConfirmationDialogBox, setShowConfirmationDialogBox] =
     useState(false);
   const date = new Date();
@@ -26,15 +19,20 @@ function DetailsDespesa(props) {
     Number(date.getMonth() + 1) +
     "-" +
     (date.getDate() < 10 ? "0" + date.getDate() : date.getDate());
-  console.log(valorEmpenhos);
   return (
     <div className="detailsDespesa">
-      <section>{"Data de protocolo: " + details["dataProtocolo"]}</section>
-      <section>{"Data de vencimento: " + details["dataVencimento"]}</section>
+      <section>
+        {"Data de protocolo: " +
+          String(details["dataProtocolo"]).substring(0, 10)}
+      </section>
+      <section>
+        {"Data de vencimento: " +
+          String(details["dataVencimento"]).substring(0, 10)}
+      </section>
       <section>{"Credor: " + details["credorDespesa"]}</section>
       <section>{"Descrição: " + details["descricaoDespesa"]}</section>
       <section>{"Valor: R$" + details["valorDespesa"]}</section>
-      <section>{"Status: " + details["status"]}</section>
+      <section>{"Status: " + status}</section>
       <section>{"Valor total dos empenhos: R$" + (valorEmpenhos ?? 0)}</section>
       <section>
         {"Valor total dos pagamentos: R$" + (valorPagamentos ?? 0)}

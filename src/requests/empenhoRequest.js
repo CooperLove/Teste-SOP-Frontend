@@ -20,17 +20,24 @@ function getEmpenhosPorData(data, setEmpenhos) {
     });
 }
 
+function getValorPagamentosDaDespesa(numeroEmpenho, setValorPagamentos) {
+  console.log("GET Emp - valor pagamentos ", numeroEmpenho);
+  fetch(`http://localhost:3001/empenhos/valorPagamentos/${numeroEmpenho}`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Data - ", data);
+      setValorPagamentos(data[0]["sum"]);
+    });
+}
+
 function createEmpenho(ano, data, valor, obs, numProtocolo, setEmpenhos) {
   let anoEmpenho = ano;
   let dataEmpenho = data;
   let valorEmpenho = valor;
   let observacao = obs;
   let numeroProtocolo = numProtocolo;
-  // let anoEmpenho = prompt("Enter ano empenho");
-  // let dataEmpenho = prompt("Enter data empenho");
-  // let valorEmpenho = prompt("Enter valor empenho");
-  // let observacao = prompt("Enter descricao empenho");
-  // let numeroProtocolo = prompt("Enter numero protocolo empenho");
   console.log(
     "Create Empenho ",
     JSON.stringify({
@@ -68,9 +75,8 @@ function createEmpenho(ano, data, valor, obs, numProtocolo, setEmpenhos) {
     });
 }
 
-function deleteEmpenho() {
-  let id = prompt("Enter merchant id");
-  fetch(`http://localhost:3001/merchants/${id}`, {
+function deleteEmpenho(numeroEmpenho) {
+  fetch(`http://localhost:3001/empenhos/${numeroEmpenho}`, {
     method: "DELETE",
   })
     .then((response) => {
@@ -105,6 +111,7 @@ function updateEmpenho(setEmpenhos) {
 module.exports = {
   getEmpenhos,
   getEmpenhosPorData,
+  getValorPagamentosDaDespesa,
   createEmpenho,
   updateEmpenho,
   deleteEmpenho,

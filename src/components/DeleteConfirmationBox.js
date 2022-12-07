@@ -1,6 +1,7 @@
 import React from "react";
 import pages from "../PagesType";
 import { deleteDespesa } from "../requests/despesasRequest";
+import { deleteEmpenho } from "../requests/empenhoRequest";
 
 function DeleteConfirmationBox({ page, id, setList, closeDialogBox }) {
   return (
@@ -23,12 +24,14 @@ function DeleteConfirmationBox({ page, id, setList, closeDialogBox }) {
         >
           Cancelar
         </button>
-        <form>
+        <form action="/">
           <button
             className="deleteButton"
             onClick={() => {
               closeDialogBox(false);
-              deleteDespesa(id, setList);
+              page === pages.Despesas
+                ? deleteDespesa(id, setList)
+                : deleteEmpenho(id, setList);
             }}
           >
             Excluir

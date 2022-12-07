@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import pages from "../PagesType";
+import { getValorPagamentosDaDespesa } from "../requests/empenhoRequest";
 import { createPagamento } from "../requests/pagamentosRequest";
+import DeleteConfirmationBox from "./DeleteConfirmationBox";
 
 function DetailsEmpenho(props) {
   const { details, setList } = props;
+  const [showConfirmationDialogBox, setShowConfirmationDialogBox] =
+    useState(false);
+  const [valorPagamentos, setValorPagamentos] = useState(0);
+  useEffect(() => {
+    getValorPagamentosDaDespesa(details["numeroEmpenho"], setValorPagamentos);
+  }, []);
+  getValorPagamentosDaDespesa(details["numeroEmpenho"], setValorPagamentos);
   const date = new Date();
   const currentDay =
     date.getFullYear() +
@@ -15,8 +25,11 @@ function DetailsEmpenho(props) {
     <div className="detailsDespesa">
       <section>{"Ano do empenho: " + details["anoEmpenho"]}</section>
       <section>{"Número do empenho: " + details["numeroEmpenho"]}</section>
-      <section>{"Data do empenho: " + details["dataEmpenho"]}</section>
+      <section>
+        {"Data do empenho: " + String(details["dataEmpenho"]).substring(0, 10)}
+      </section>
       <section>{"Valor: R$" + details["valorEmpenho"]}</section>
+      <section>{"Valor dos pagamentos: R$" + (valorPagamentos ?? 0)}</section>
       <section>{"Observação: " + details["observacao"]}</section>
       <br />
       <div>
@@ -52,10 +65,26 @@ function DetailsEmpenho(props) {
           >
             Gerar pagamento
           </button>
+          <br />
         </form>
+        <button
+          onClick={() => {
+            setShowConfirmationDialogBox(true);
+          }}
+        >
+          Excluir Empenho
+        </button>
+        {showConfirmationDialogBox ? (
+          <DeleteConfirmationBox
+            page={pages.Empenhos}
+            id={details["numeroEmpenho"]}
+            setList={setList}
+            closeDialogBox={setShowConfirmationDialogBox}
+          />
+        ) : (
+          ""
+        )}
       </div>
-      <br />
-      <button>Ver pagamentos</button>
     </div>
   );
 }
