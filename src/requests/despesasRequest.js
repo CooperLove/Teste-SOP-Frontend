@@ -28,15 +28,6 @@ function getValorPagamentosDaDespesa(numeroProtocolo, setValorPagamentos) {
     });
 }
 
-function getDespesasTipoDespesa(setDespesas) {
-  fetch("http://localhost:3001/tipoDespesas")
-    .then((response) => {
-      return response.text();
-    })
-    .then((data) => {
-      setDespesas(data);
-    });
-}
 function getDespesasCredor(credor, setDespesas) {
   fetch(`http://localhost:3001/credorDespesas/${credor}`)
     .then((response) => {
