@@ -18,6 +18,16 @@ function getPagamentosPorData(data, setPagamentos) {
     });
 }
 
+function getCredorDoPagamento(numeroEmpenho, setCredor) {
+  fetch(`http://localhost:3001/pagamentos/credores/${numeroEmpenho}`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      setCredor(data);
+    });
+}
+
 function createPagamento(ano, data, valor, obs, numEmpenho, setPagamentos) {
   let anoPagamento = ano;
   let dataPagamento = data;
@@ -99,6 +109,7 @@ function updatePagamento(setPagamentos) {
 module.exports = {
   getPagamentos,
   getPagamentosPorData,
+  getCredorDoPagamento,
   createPagamento,
   updatePagamento,
   deletePagamento,

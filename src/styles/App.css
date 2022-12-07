@@ -64,7 +64,7 @@
 }
 
 .detailsDespesa {
-  background-color: aquamarine;
+  background-color: aliceblue;
   border-radius: 5px;
   padding: 10px;
   width: 100%;
@@ -133,6 +133,7 @@
   margin-bottom: 20px;
 }
 
+.createDespesaButton,
 .cancelButton,
 .deleteButton {
   border-radius: 5px;
@@ -158,4 +159,74 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+}
+
+.dataCredorDespesaSection,
+.valoresDespesaSection,
+.descStatusDespesaSection {
+  /* background-color: aqua; */
+  display: flex;
+  /* width: 75%; */
+  gap: 1%;
+  /* justify-content: space-around; */
+}
+.dataCredorDespesaSection {
+}
+.valoresDespesaSection {
+}
+
+.baseDespesaComponent {
+  width: 33%;
+  /* background-color: red; */
+}
+
+.createDespesa {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  height: 60vh;
+  width: 50vw;
+  background-color: aliceblue;
+  row-gap: 2%;
+}
+
+.basicFormInput {
+  display: flex;
+  flex-direction: column;
+  /* background-color: antiquewhite; */
+  width: 50%;
+}
+.wrapperCreateDespesaButtons {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5%;
+}
+.createDespesaButton {
+  width: 125px;
+  margin-top: 5%;
+}
+
+.despesaSearch {
+  width: 20vw;
+}
+
+.createDespesaTitle {
+  margin-top: 5%;
+}
+
+.textarea {
+  border: 1px solid black;
+  background-color: #fff;
+  font-family: inherit;
+  font-size: inherit;
+  /* padding: 1px 6px; */
+  display: block;
+  width: 99.5%;
+  overflow: hidden;
+  min-height: 40px;
+  max-height: 100px;
+  line-height: 20px;
 }

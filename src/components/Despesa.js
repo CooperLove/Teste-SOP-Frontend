@@ -13,7 +13,6 @@ function Despesa(props) {
   const { details, setList, page } = props;
   const [valorEmpenhos, setValorEmpenhos] = useState(0);
   const [valorPagamentos, setValorPagamentos] = useState(0);
-  console.log("Details: " + Array(details));
   const [showMore, setShowMore] = useState(false);
   let rowData = [];
   for (const [key, value] of Object.entries(details)) {
@@ -40,15 +39,23 @@ function Despesa(props) {
   }
   return !showMore ? (
     <ul className="despesasRow" onClick={() => setShowMore(!showMore)}>
-      {rowData.map((e) => {
-        return <li className="rowData">{e}</li>;
+      {rowData.map((e, index) => {
+        return (
+          <li key={index} className="rowData">
+            {e}
+          </li>
+        );
       })}
     </ul>
   ) : (
     <section className="">
       <ul className="despesasRow" onClick={() => setShowMore(!showMore)}>
-        {rowData.map((e) => {
-          return <li className="rowData">{e}</li>;
+        {rowData.map((e, index) => {
+          return (
+            <li key={index} className="rowData">
+              {e}
+            </li>
+          );
         })}
       </ul>
       {page === pages.Despesas ? (

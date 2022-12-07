@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import pages from "../PagesType";
-import { getValorPagamentosDaDespesa } from "../requests/empenhoRequest";
+import {
+  getCredorDaDespesa,
+  getValorPagamentosDaDespesa,
+} from "../requests/empenhoRequest";
 import { createPagamento } from "../requests/pagamentosRequest";
 import DeleteConfirmationBox from "./DeleteConfirmationBox";
 
@@ -9,20 +12,25 @@ function DetailsEmpenho(props) {
   const [showConfirmationDialogBox, setShowConfirmationDialogBox] =
     useState(false);
   const [valorPagamentos, setValorPagamentos] = useState(0);
+  const [credor, setCredor] = useState("");
   useEffect(() => {
+    getCredorDaDespesa(details["numeroProtocolo"], setCredor);
     getValorPagamentosDaDespesa(details["numeroEmpenho"], setValorPagamentos);
   }, []);
-  getValorPagamentosDaDespesa(details["numeroEmpenho"], setValorPagamentos);
+  //   getCredorDaDespesa(details["numeroProtocolo"], setCredor);
+  //   getValorPagamentosDaDespesa(details["numeroEmpenho"], setValorPagamentos);
   const date = new Date();
+  const year = Number(String(details["anoEmpenho"]));
   const currentDay =
     date.getFullYear() +
     "-" +
     Number(date.getMonth() + 1) +
     "-" +
     (date.getDate() < 10 ? "0" + date.getDate() : date.getDate());
-  console.log("Emp:", details);
+  console.log("Emp:", credor?.at(0)?.credor);
   return (
     <div className="detailsDespesa">
+      <section>{"Nome do credor: " + credor?.at(0)?.credor ?? ""}</section>
       <section>{"Ano do empenho: " + details["anoEmpenho"]}</section>
       <section>{"Número do empenho: " + details["numeroEmpenho"]}</section>
       <section>
@@ -34,6 +42,16 @@ function DetailsEmpenho(props) {
       <br />
       <div>
         <form action="">
+          <label htmlFor="">Ano do pagamento </label>
+          <input
+            defaultValue={year}
+            type="number"
+            id="inputAnoPagamento"
+            min={year}
+            max={year + 10}
+            required={true}
+          />
+          <br />
           <label htmlFor="">Valor do pagamento </label>
           <input type="number" id="inputValorPagamento" required={true} />
           <br />
@@ -47,14 +65,16 @@ function DetailsEmpenho(props) {
           <br />
           <button
             onClick={() => {
+              const ano = document.getElementById("inputAnoPagamento").value;
               const valor = document.getElementById(
                 "inputValorPagamento"
               ).value;
               const descricao = document.getElementById(
                 "inputObservacaoPagamento"
               ).value;
+              if (valor === "" || descricao == "") return;
               createPagamento(
-                `${date.getFullYear()}`,
+                `${ano}`,
                 currentDay,
                 valor,
                 descricao,

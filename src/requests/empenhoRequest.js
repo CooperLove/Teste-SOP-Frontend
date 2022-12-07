@@ -32,6 +32,18 @@ function getValorPagamentosDaDespesa(numeroEmpenho, setValorPagamentos) {
     });
 }
 
+function getCredorDaDespesa(numeroProtocolo, setCredor) {
+  console.log("GET Emp - credor ", numeroProtocolo);
+  fetch(`http://localhost:3001/empenhos/credores/${numeroProtocolo}`)
+    .then((response) => {
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Data - ", data);
+      setCredor(data);
+    });
+}
+
 function createEmpenho(ano, data, valor, obs, numProtocolo, setEmpenhos) {
   let anoEmpenho = ano;
   let dataEmpenho = data;
@@ -112,6 +124,7 @@ module.exports = {
   getEmpenhos,
   getEmpenhosPorData,
   getValorPagamentosDaDespesa,
+  getCredorDaDespesa,
   createEmpenho,
   updateEmpenho,
   deleteEmpenho,

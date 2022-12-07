@@ -108,7 +108,8 @@ function App() {
         <br />
         {page === pages.Despesas ? (
           <input
-            type="text"
+            className="despesaSearch"
+            type="search"
             placeholder="Pesquisar por tipo ou credor"
             onChange={(e) => {
               if (e.target.value === "") {
@@ -118,7 +119,6 @@ function App() {
               }
               setCurrentSearch((c) => (c = e.target.value));
               getSearchResultByCredor(e.target.value);
-              console.log("E" + currentSearch, selectedDate);
             }}
           />
         ) : (

@@ -9,7 +9,6 @@ function getDespesas(setDespesas) {
 }
 
 function getValorEmpenhosDaDespesa(numeroProtocolo, setValorEmpenhos) {
-  console.log("GET valor empenhos ", numeroProtocolo);
   fetch(`http://localhost:3001/despesas/valorEmpenhos/${numeroProtocolo}`)
     .then((response) => {
       return response.json();
@@ -20,7 +19,6 @@ function getValorEmpenhosDaDespesa(numeroProtocolo, setValorEmpenhos) {
 }
 
 function getValorPagamentosDaDespesa(numeroProtocolo, setValorPagamentos) {
-  console.log("GET valor pagamentos ", numeroProtocolo);
   fetch(`http://localhost:3001/despesas/valorPagamentos/${numeroProtocolo}`)
     .then((response) => {
       return response.json();

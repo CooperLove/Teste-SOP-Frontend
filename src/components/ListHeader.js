@@ -35,8 +35,12 @@ function ListHeader(props) {
   return (
     <div className="listHeader">
       <ul className="listHeaderRow">
-        {header.map((v) => {
-          return <li className="rowData">{v}</li>;
+        {header.map((v, index) => {
+          return (
+            <li key={index} className="rowData">
+              {v}
+            </li>
+          );
         })}
       </ul>
     </div>

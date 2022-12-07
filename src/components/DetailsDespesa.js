@@ -13,6 +13,7 @@ function DetailsDespesa(props) {
   const [showConfirmationDialogBox, setShowConfirmationDialogBox] =
     useState(false);
   const date = new Date();
+  const year = Number(String(details["dataProtocolo"]).substring(0, 4));
   const currentDay =
     date.getFullYear() +
     "-" +
@@ -21,25 +22,52 @@ function DetailsDespesa(props) {
     (date.getDate() < 10 ? "0" + date.getDate() : date.getDate());
   return (
     <div className="detailsDespesa">
-      <section>
-        {"Data de protocolo: " +
-          String(details["dataProtocolo"]).substring(0, 10)}
+      <section className="dataCredorDespesaSection">
+        <section className="baseDespesaComponent">
+          {"Data de protocolo: " +
+            String(details["dataProtocolo"]).substring(0, 10)}
+        </section>
+        <section className="baseDespesaComponent">
+          {"Data de vencimento: " +
+            String(details["dataVencimento"]).substring(0, 10)}
+        </section>
+        <section className="baseDespesaComponent">
+          {"Credor: " + details["credorDespesa"]}
+        </section>
       </section>
-      <section>
-        {"Data de vencimento: " +
-          String(details["dataVencimento"]).substring(0, 10)}
+      <section className="descStatusDespesaSection">
+        <section className="baseDespesaComponent">
+          {"Descrição: " + details["descricaoDespesa"]}
+        </section>
+        <section className="baseDespesaComponent">
+          {"Status: " + status}
+        </section>
+        <section className="baseDespesaComponent"></section>
       </section>
-      <section>{"Credor: " + details["credorDespesa"]}</section>
-      <section>{"Descrição: " + details["descricaoDespesa"]}</section>
-      <section>{"Valor: R$" + details["valorDespesa"]}</section>
-      <section>{"Status: " + status}</section>
-      <section>{"Valor total dos empenhos: R$" + (valorEmpenhos ?? 0)}</section>
-      <section>
-        {"Valor total dos pagamentos: R$" + (valorPagamentos ?? 0)}
+      <section className="valoresDespesaSection">
+        <section className="baseDespesaComponent">
+          {"Valor: R$" + details["valorDespesa"]}
+        </section>
+        <section className="baseDespesaComponent">
+          {"Valor total dos empenhos: R$" + (valorEmpenhos ?? 0)}
+        </section>
+        <section className="baseDespesaComponent">
+          {"Valor total dos pagamentos: R$" + (valorPagamentos ?? 0)}
+        </section>
       </section>
       <br />
       <div>
         <form action="">
+          <label htmlFor="">Ano do empenho </label>
+          <input
+            defaultValue={year}
+            type="number"
+            id="inputAnoEmpenho"
+            min={year}
+            max={year + 10}
+            required={true}
+          />
+          <br />
           <label htmlFor="">Valor do empenho </label>
           <input type="number" id="inputValorEmpenho" required={true} />
           <br />
@@ -53,12 +81,15 @@ function DetailsDespesa(props) {
           <br />
           <button
             onClick={() => {
+              const ano = document.getElementById("inputAnoEmpenho").value;
               const valor = document.getElementById("inputValorEmpenho").value;
               const descricao = document.getElementById(
                 "inputDescricaoEmpenho"
               ).value;
+              console.log(ano, valor, descricao);
+              if (valor === "" || descricao === "") return;
               createEmpenho(
-                `${date.getFullYear()}`,
+                `${ano}`,
                 currentDay,
                 valor,
                 descricao,
@@ -72,10 +103,7 @@ function DetailsDespesa(props) {
           <br />
           <br />
         </form>
-        <form>
-          <button>Ver empenhos</button>
-          <br />
-        </form>
+
         <button
           onClick={() => {
             setShowConfirmationDialogBox(true);

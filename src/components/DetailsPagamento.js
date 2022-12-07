@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { getCredorDoPagamento } from "../requests/pagamentosRequest";
 
 function DetailsPagamento(props) {
   const { details, setList } = props;
+  const [credor, setCredor] = useState("");
+  useEffect(() => {
+    getCredorDoPagamento(details["numeroEmpenho"], setCredor);
+  }, []);
   const date = new Date();
   const currentDay =
     date.getFullYear() +
@@ -9,9 +14,10 @@ function DetailsPagamento(props) {
     Number(date.getMonth() + 1) +
     "-" +
     (date.getDate() < 10 ? "0" + date.getDate() : date.getDate());
-  console.log("Emp:", details);
+  console.log("Emp:", credor?.at(0)?.credor);
   return (
     <div className="detailsDespesa">
+      <section>{"Nome do credor: " + credor?.at(0)?.credor ?? ""}</section>
       <section>{"Ano do pagamento: " + details["anoPagamento"]}</section>
       <section>{"Número do pagamento: " + details["numeroPagamento"]}</section>
       <section>{"Data do pagamento: " + details["dataPagamento"]}</section>
